@@ -1,0 +1,97 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "title": "Festival Jazz & Blues",
+      "description": "Concert live avec des artistes internationaux.",
+      "category": "Musique",
+      "date": "2025-05-22",
+      "location": "Casablanca",
+      "price": 55,
+      "image": "https://images.unsplash.com/photo-1518972559570-9ecbfb05a0b2",
+      "availableTickets": 200
+    },
+    {
+      "id": 2,
+      "title": "Exposition Art Moderne",
+      "description": "Exposition des œuvres contemporaines.",
+      "category": "Art",
+      "date": "2025-03-20",
+      "location": "Rabat",
+      "price": 25,
+      "image": "https://images.unsplash.com/photo-1529101091764-c3526daf38fe",
+      "availableTickets": 150
+    },
+    {
+      "id": 3,
+      "title": "Cirque du Soleil – Alegría",
+      "description": "Spectacle mondialement connu.",
+      "category": "Spectacle",
+      "date": "2025-04-10",
+      "location": "Marrakech",
+      "price": 120,
+      "image": "https://images.unsplash.com/photo-1544551763-46a013bb70d5",
+      "availableTickets": 100
+    },
+    {
+      "id": 4,
+      "title": "PSG vs Real Madrid",
+      "description": "Match de football international.",
+      "category": "Football",
+      "date": "2025-02-18",
+      "location": "Paris",
+      "price": 150,
+      "image": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2",
+      "availableTickets": 300
+    },
+    {
+      "id": 5,
+      "title": "Théâtre Classique",
+      "description": "Pièce de théâtre dramatique.",
+      "category": "Spectacle",
+      "date": "2025-06-08",
+      "location": "Fès",
+      "price": 40,
+      "image": "https://images.unsplash.com/photo-1507924538820-ede94a04019d",
+      "availableTickets": 120
+    },
+    {
+      "id": 6,
+      "title": "Street Art Festival",
+      "description": "Festival urbain et graffiti.",
+      "category": "Art",
+      "date": "2025-06-15",
+      "location": "Tanger",
+      "price": 15,
+      "image": "https://images.unsplash.com/photo-1526948128573-703ee1aeb6fa",
+      "availableTickets": 500
+    }
+  ],
+
+  "orders": [
+    {
+      "id": 1,
+      "clientName": "Ahlam Elhadri",
+      "email": "ahlam@gmail.com",
+      "phone": "0612345678",
+      "items": [
+        {
+          "eventId": 1,
+          "title": "Festival Jazz & Blues",
+          "quantity": 2,
+          "price": 55
+        }
+      ],
+      "total": 110,
+      "createdAt": "2025-01-12"
+    }
+  ],
+
+  "admins": [
+    {
+      "id": 1,
+      "email": "admin@eventsphere.com",
+      "password": "123456"
+    }
+  ]
+}
