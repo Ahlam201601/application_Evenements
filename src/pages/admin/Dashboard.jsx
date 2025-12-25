@@ -1,44 +1,49 @@
 import { useState } from "react";
 import EventsList from "./EventsList";
 import Orders from "./Orders";
+import { FaCalendarAlt, FaShoppingBag } from "react-icons/fa";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("events");
 
   return (
     <div className="flex h-screen bg-gray-100">
-      {/* Sidebar fixe */}
+      {/* Fixed Sidebar */}
       <div className="w-76 bg-gray-800 text-white fixed h-full">
         <div className="p-6">
-          <h1 className="text-2xl font-bold mb-10">EventSphere Admin</h1>
+          <h1 className="text-2xl font-bold mb-10">
+            EventSphere Admin
+          </h1>
 
-          <nav>
+          <nav className="space-y-3">
             <button
               onClick={() => setActiveTab("events")}
-              className={`w-full text-left p-4 rounded mb-3 transition ${
+              className={`w-full flex items-center gap-3 text-left p-4 rounded transition ${
                 activeTab === "events"
-                  ? "bg-blue-600"
+                  ? "bg-green-600"
                   : "hover:bg-gray-700"
               }`}
             >
-              📅 Events
+              <FaCalendarAlt className="text-lg" />
+              <span>Events</span>
             </button>
 
             <button
               onClick={() => setActiveTab("orders")}
-              className={`w-full text-left p-4 rounded transition ${
+              className={`w-full flex items-center gap-3 text-left p-4 rounded transition ${
                 activeTab === "orders"
-                  ? "bg-blue-600"
+                  ? "bg-green-600"
                   : "hover:bg-gray-700"
               }`}
             >
-              📦 Orders
+              <FaShoppingBag className="text-lg" />
+              <span>Orders</span>
             </button>
           </nav>
         </div>
       </div>
 
-      {/* Contenu principal */}
+      {/* Main Content */}
       <div className="ml-64 flex-1 overflow-auto">
         <div className="p-8">
           {activeTab === "events" && <EventsList />}
