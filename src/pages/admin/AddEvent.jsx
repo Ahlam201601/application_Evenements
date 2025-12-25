@@ -10,17 +10,17 @@ export default function AddEvent() {
     description: "",
     category: "",
     date: "",
+    location: "",
     price: "",
     image: "",
   });
 
-  const navigate =useNavigate();
+  const navigate = useNavigate();
   const [loadingImg, setLoadingImg] = useState(false);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
-  // ---------- Upload Cloudinary (نفسو لي كان عندك) ----------
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -33,10 +33,7 @@ export default function AddEvent() {
 
     const res = await fetch(
       "https://api.cloudinary.com/v1_1/dqhakngxl/image/upload",
-      {
-        method: "POST",
-        body: formData,
-      }
+      { method: "POST", body: formData }
     );
 
     const data = await res.json();
@@ -44,37 +41,29 @@ export default function AddEvent() {
     setLoadingImg(false);
   };
 
-  // ---------- Validation ----------
   const validate = () => {
     let temp = {};
     if (!form.title) temp.title = "Title is required";
     if (!form.description) temp.description = "Description is required";
     if (!form.category) temp.category = "Category is required";
     if (!form.date) temp.date = "Date is required";
+    if (!form.location) temp.location = "Location is required";
     if (!form.price) temp.price = "Price is required";
     if (!form.image) temp.image = "Image is required";
-
     setErrors(temp);
     return Object.keys(temp).length === 0;
   };
 
-  // ---------- Click Add ----------
   const handleAddClick = () => {
     if (validate()) setShowConfirm(true);
   };
 
-  // ---------- Confirm Submit ----------
   const handleSubmit = async () => {
     setShowConfirm(false);
     setLoading(true);
 
     try {
-      const eventData = {
-        ...form,
-        price: Number(form.price),
-      };
-
-      await EventPost(eventData);
+      await EventPost({ ...form, price: Number(form.price) });
 
       toast.success("Event added successfully 🎉");
 
@@ -83,17 +72,14 @@ export default function AddEvent() {
         description: "",
         category: "",
         date: "",
+        location: "",
         price: "",
         image: "",
       });
 
       setErrors({});
-
-      setTimeout(() => {
       navigate("/admin");
-    }, 500);
-    
-    } catch (err) {
+    } catch {
       toast.error("Error while adding event");
     } finally {
       setLoading(false);
@@ -102,25 +88,25 @@ export default function AddEvent() {
 
   return (
     <>
-      {/* ---------- MAIN FORM MODAL  ---------- */}
+      {/* MAIN MODAL */}
       <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
-        <div className="relative bg-white w-full max-w-lg p-8 rounded-xl shadow-xl">
+        <div className="relative bg-white w-full max-w-2xl p-8 rounded-2xl shadow-2xl border border-indigo-100">
           <button
             onClick={() => navigate("/admin")}
-            className="absolute right-4 top-4 text-gray-500 hover:text-black"
+            className="absolute right-5 top-5 text-gray-500 hover:text-black"
           >
             <FaTimes size={20} />
           </button>
 
-          <h2 className="text-2xl font-bold mb-6 text-gray-800">
+          <h2 className="text-3xl font-bold mb-6 text-gray-800">
             Add New Event
           </h2>
 
-          <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+          <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
             <input
               type="text"
               placeholder="Event title"
-              className="w-full border rounded-lg px-4 py-3"
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:border-indigo-400 outline-none"
               value={form.title}
               onChange={(e) => setForm({ ...form, title: e.target.value })}
             />
@@ -129,9 +115,9 @@ export default function AddEvent() {
             )}
 
             <textarea
-              placeholder="Event description"
               rows="3"
-              className="w-full border rounded-lg px-4 py-3"
+              placeholder="Event description"
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:border-indigo-400 outline-none"
               value={form.description}
               onChange={(e) =>
                 setForm({ ...form, description: e.target.value })
@@ -141,46 +127,82 @@ export default function AddEvent() {
               <p className="text-red-500 text-sm">{errors.description}</p>
             )}
 
-            <select
-              className="w-full border rounded-lg px-4 py-3"
-              value={form.category}
-              onChange={(e) => setForm({ ...form, category: e.target.value })}
-            >
-              <option value="">Select a category</option>
-              <option value="Music">Music</option>
-              <option value="Art">Art</option>
-              <option value="Show">Show</option>
-              <option value="Football">Football</option>
-            </select>
-            {errors.category && (
-              <p className="text-red-500 text-sm">{errors.category}</p>
-            )}
+            {/* CATEGORY + PRICE SAME LINE */}
+            {/* CATEGORY + PRICE فـ نفس السطر */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* CATEGORY */}
+              <div>
+                <select
+                  className="w-full border rounded-lg px-4 py-3"
+                  value={form.category}
+                  onChange={(e) =>
+                    setForm({ ...form, category: e.target.value })
+                  }
+                >
+                  <option value="">Select a category</option>
+                  <option value="Music">Music</option>
+                  <option value="Art">Art</option>
+                  <option value="Show">Show</option>
+                  <option value="Football">Football</option>
+                </select>
 
-            <input
-              type="date"
-              className="w-full border rounded-lg px-4 py-3"
-              value={form.date}
-              onChange={(e) => setForm({ ...form, date: e.target.value })}
-            />
-            {errors.date && (
-              <p className="text-red-500 text-sm">{errors.date}</p>
-            )}
+                {errors.category && (
+                  <p className="text-red-500 text-sm mt-1">{errors.category}</p>
+                )}
+              </div>
 
-            <input
-              type="number"
-              placeholder="Ticket price"
-              className="w-full border rounded-lg px-4 py-3"
-              value={form.price}
-              onChange={(e) => setForm({ ...form, price: e.target.value })}
-            />
-            {errors.price && (
-              <p className="text-red-500 text-sm">{errors.price}</p>
-            )}
+              {/* PRICE */}
+              <div>
+                <input
+                  type="number"
+                  placeholder="Ticket price"
+                  className="w-full border rounded-lg px-4 py-3"
+                  value={form.price}
+                  onChange={(e) => setForm({ ...form, price: e.target.value })}
+                />
+
+                {errors.price && (
+                  <p className="text-red-500 text-sm mt-1">{errors.price}</p>
+                )}
+              </div>
+            </div>
+
+            {/* DATE + LOCATION فـ نفس السطر */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* DATE */}
+              <div>
+                <input
+                  type="date"
+                  className="w-full border rounded-lg px-4 py-3"
+                  value={form.date}
+                  onChange={(e) => setForm({ ...form, date: e.target.value })}
+                />
+                {errors.date && (
+                  <p className="text-red-500 text-sm mt-1">{errors.date}</p>
+                )}
+              </div>
+
+              {/* LOCATION */}
+              <div>
+                <input
+                  type="text"
+                  placeholder="Location"
+                  className="w-full border rounded-lg px-4 py-3"
+                  value={form.location}
+                  onChange={(e) =>
+                    setForm({ ...form, location: e.target.value })
+                  }
+                />
+                {errors.location && (
+                  <p className="text-red-500 text-sm mt-1">{errors.location}</p>
+                )}
+              </div>
+            </div>
 
             <input
               type="file"
               accept="image/*"
-              className="w-full border rounded-lg px-4 py-3"
+              className="w-full border border-gray-200 rounded-xl px-4 py-3"
               onChange={handleImageUpload}
             />
 
@@ -191,7 +213,7 @@ export default function AddEvent() {
             {form.image && (
               <img
                 src={form.image}
-                className="mt-3 h-32 object-cover rounded"
+                className="mt-3 h-40 w-full object-cover rounded-xl"
                 alt="preview"
               />
             )}
@@ -203,7 +225,7 @@ export default function AddEvent() {
             <div className="flex justify-end pt-4">
               <button
                 onClick={handleAddClick}
-                className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition"
+                className="bg-indigo-600 text-white px-7 py-3 rounded-xl font-semibold hover:bg-indigo-700 transition"
               >
                 Add Event
               </button>
@@ -212,16 +234,16 @@ export default function AddEvent() {
         </div>
       </div>
 
-      {/* ---------- CONFIRM MODAL ---------- */}
+      {/* CONFIRM MODAL */}
       {showConfirm && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white w-full max-w-md p-6 rounded-xl shadow-xl">
-            <h3 className="text-xl font-bold mb-4">Confirm Add Event ?</h3>
+          <div className="bg-white w-full max-w-md p-6 rounded-2xl shadow-2xl border border-indigo-100">
+            <h3 className="text-xl font-bold mb-4">Confirm Add Event?</h3>
 
-            <div className="flex justify-end space-x-3 pt-3">
+            <div className="flex justify-end gap-3 pt-3">
               <button
                 onClick={() => setShowConfirm(false)}
-                className="px-4 py-2 rounded-lg border hover:bg-gray-100 transition"
+                className="px-4 py-2 rounded-xl border hover:bg-gray-100 transition"
               >
                 Cancel
               </button>
@@ -229,7 +251,7 @@ export default function AddEvent() {
               <button
                 onClick={handleSubmit}
                 disabled={loading}
-                className="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition"
+                className="px-4 py-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 transition"
               >
                 {loading ? "Adding..." : "Confirm"}
               </button>

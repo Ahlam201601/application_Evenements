@@ -20,7 +20,7 @@ const Dashboard = () => {
               onClick={() => setActiveTab("events")}
               className={`w-full flex items-center gap-3 text-left p-4 rounded transition ${
                 activeTab === "events"
-                  ? "bg-green-600"
+                  ? "bg-indigo-600"
                   : "hover:bg-gray-700"
               }`}
             >
@@ -32,7 +32,7 @@ const Dashboard = () => {
               onClick={() => setActiveTab("orders")}
               className={`w-full flex items-center gap-3 text-left p-4 rounded transition ${
                 activeTab === "orders"
-                  ? "bg-green-600"
+                  ? "bg-indigo-600"
                   : "hover:bg-gray-700"
               }`}
             >
