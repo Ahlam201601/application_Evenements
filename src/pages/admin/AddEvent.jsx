@@ -89,20 +89,21 @@ export default function AddEvent() {
   return (
     <>
       {/* MAIN MODAL */}
-      <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
-        <div className="relative bg-white w-full max-w-2xl p-8 rounded-2xl shadow-2xl border border-indigo-100">
+      <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 px-3">
+        <div className="relative bg-white w-full max-w-xl sm:max-w-2xl p-5 sm:p-8 rounded-2xl shadow-2xl border border-indigo-100">
           <button
             onClick={() => navigate("/admin")}
-            className="absolute right-5 top-5 text-gray-500 hover:text-black"
+            className="absolute right-4 top-4 text-gray-500 hover:text-black"
           >
-            <FaTimes size={20} />
+            <FaTimes size={18} />
           </button>
 
-          <h2 className="text-3xl font-bold mb-6 text-gray-800">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-5 text-gray-800">
             Add New Event
           </h2>
 
-          <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+          <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+            {/* title */}
             <input
               type="text"
               placeholder="Event title"
@@ -114,6 +115,7 @@ export default function AddEvent() {
               <p className="text-red-500 text-sm">{errors.title}</p>
             )}
 
+            {/* description */}
             <textarea
               rows="3"
               placeholder="Event description"
@@ -127,10 +129,8 @@ export default function AddEvent() {
               <p className="text-red-500 text-sm">{errors.description}</p>
             )}
 
-            {/* CATEGORY + PRICE SAME LINE */}
-            {/* CATEGORY + PRICE فـ نفس السطر */}
+            {/* CATEGORY + PRICE */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* CATEGORY */}
               <div>
                 <select
                   className="w-full border rounded-lg px-4 py-3"
@@ -145,13 +145,11 @@ export default function AddEvent() {
                   <option value="Show">Show</option>
                   <option value="Football">Football</option>
                 </select>
-
                 {errors.category && (
                   <p className="text-red-500 text-sm mt-1">{errors.category}</p>
                 )}
               </div>
 
-              {/* PRICE */}
               <div>
                 <input
                   type="number"
@@ -160,16 +158,14 @@ export default function AddEvent() {
                   value={form.price}
                   onChange={(e) => setForm({ ...form, price: e.target.value })}
                 />
-
                 {errors.price && (
                   <p className="text-red-500 text-sm mt-1">{errors.price}</p>
                 )}
               </div>
             </div>
 
-            {/* DATE + LOCATION فـ نفس السطر */}
+            {/* DATE + LOCATION */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* DATE */}
               <div>
                 <input
                   type="date"
@@ -182,7 +178,6 @@ export default function AddEvent() {
                 )}
               </div>
 
-              {/* LOCATION */}
               <div>
                 <input
                   type="text"
@@ -199,6 +194,7 @@ export default function AddEvent() {
               </div>
             </div>
 
+            {/* Image */}
             <input
               type="file"
               accept="image/*"
@@ -213,7 +209,7 @@ export default function AddEvent() {
             {form.image && (
               <img
                 src={form.image}
-                className="mt-3 h-40 w-full object-cover rounded-xl"
+                className="mt-3 max-h-48 w-full object-cover rounded-xl"
                 alt="preview"
               />
             )}
@@ -222,10 +218,10 @@ export default function AddEvent() {
               <p className="text-red-500 text-sm">{errors.image}</p>
             )}
 
-            <div className="flex justify-end pt-4">
+            <div className="flex justify-end pt-3">
               <button
                 onClick={handleAddClick}
-                className="bg-indigo-600 text-white px-7 py-3 rounded-xl font-semibold hover:bg-indigo-700 transition"
+                className="bg-indigo-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-indigo-700 transition"
               >
                 Add Event
               </button>
@@ -236,14 +232,27 @@ export default function AddEvent() {
 
       {/* CONFIRM MODAL */}
       {showConfirm && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white w-full max-w-md p-6 rounded-2xl shadow-2xl border border-indigo-100">
-            <h3 className="text-xl font-bold mb-4">Confirm Add Event?</h3>
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 px-3">
+          <div className="bg-white w-full max-w-sm sm:max-w-md p-6 sm:p-8 rounded-2xl shadow-2xl border border-indigo-100 flex flex-col items-center text-center space-y-4">
+            {/* ICON */}
+            <div className="bg-indigo-100 text-indigo-600 w-16 h-16 flex items-center justify-center rounded-full text-3xl">
+              ✅
+            </div>
 
-            <div className="flex justify-end gap-3 pt-3">
+            <h3 className="text-lg sm:text-xl font-bold text-gray-800">
+              Confirm Add Event?
+            </h3>
+
+            <p className="text-gray-500 text-sm sm:text-base">
+              Are you sure you want to add this event? This action cannot be
+              undone.
+            </p>
+
+            {/* ACTION BUTTONS */}
+            <div className="flex flex-col sm:flex-row justify-center gap-3 w-full mt-2">
               <button
                 onClick={() => setShowConfirm(false)}
-                className="px-4 py-2 rounded-xl border hover:bg-gray-100 transition"
+                className="w-full sm:w-auto px-4 py-2 rounded-xl border hover:bg-gray-100 transition"
               >
                 Cancel
               </button>
@@ -251,7 +260,7 @@ export default function AddEvent() {
               <button
                 onClick={handleSubmit}
                 disabled={loading}
-                className="px-4 py-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 transition"
+                className="w-full sm:w-auto px-4 py-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 transition"
               >
                 {loading ? "Adding..." : "Confirm"}
               </button>

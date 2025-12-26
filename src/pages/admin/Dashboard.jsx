@@ -7,9 +7,10 @@ const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("events");
 
   return (
-    <div className="flex h-screen bg-gray-100">
-      {/* Fixed Sidebar */}
-      <div className="w-76 bg-gray-800 text-white fixed h-full">
+    <div className="flex min-h-screen bg-gray-100">
+
+      {/* Sidebar */}
+      <div className="w-64 bg-gray-800 text-white fixed inset-y-0 left-0">
         <div className="p-6">
           <h1 className="text-2xl font-bold mb-10">
             EventSphere Admin
@@ -44,8 +45,8 @@ const Dashboard = () => {
       </div>
 
       {/* Main Content */}
-      <div className="ml-64 flex-1 overflow-auto">
-        <div className="p-8">
+      <div className="flex-1 ml-64 overflow-auto">
+        <div className="p-6 sm:p-8">
           {activeTab === "events" && <EventsList />}
           {activeTab === "orders" && <Orders />}
         </div>

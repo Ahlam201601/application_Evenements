@@ -15,7 +15,7 @@ export const getEvents = () => {
 export const createEvent = (data) => axios.post(API_URL, data);
 
 export const deleteEvent = (id) => {
-  return axios.delete(`${BASE_URL}/${id}`);
+  return axios.delete(`${BASE_URL}/events/${id}`);
 };
 
 export const updateEvent = (id, data) => {
