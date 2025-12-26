@@ -1,6 +1,6 @@
 import { FiCalendar, FiMapPin, FiEdit, FiTrash2 } from "react-icons/fi";
 
-export default function EventCard({ event , onDelete}) {
+export default function EventCard({ event , onDeleteClick}) {
   return (
     <div className="bg-white rounded-2xl border border-indigo-100 overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 
     w-full max-w-sm mx-auto">
@@ -61,7 +61,7 @@ export default function EventCard({ event , onDelete}) {
           </button>
 
           <button
-            onClick={() => onDelete(event.id)}
+            onClick={() => onDeleteClick(event.id)}
             className="p-2 text-red-600 bg-red-50 rounded-md hover:bg-red-100 transition-colors"
             aria-label="Delete event"
           >
