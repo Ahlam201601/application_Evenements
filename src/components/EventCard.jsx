@@ -2,7 +2,7 @@ import { FiCalendar, FiMapPin, FiEdit, FiTrash2 } from "react-icons/fi";
 import { useState } from "react";
 import EditEvent from "../pages/admin/EditEvent";
 
-export default function EventCard({ event, onDeleteClick }) {
+export default function EventCard({ event, onDeleteClick, isAdmin }) {
   const [editEvent, setEditEvent] = useState(false);
 
   return (
@@ -57,21 +57,31 @@ export default function EventCard({ event, onDeleteClick }) {
 
           {/* ACTION BUTTONS */}
           <div className="flex justify-end gap-2 pt-3 sm:pt-4">
-            <button
-              onClick={() => setEditEvent(true)}
-              className="p-2 text-indigo-600 bg-indigo-50 rounded-md hover:bg-indigo-100 transition-colors"
-              aria-label="Edit event"
-            >
-              <FiEdit size={18} />
-            </button>
+            {!isAdmin ? (
+              <button
+                className="p-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-700 transition-colors"
+              >
+                View
+              </button>
+            ) : (
+              <>
+                <button
+                  onClick={() => setEditEvent(true)}
+                  className="p-2 text-indigo-600 bg-indigo-50 rounded-md hover:bg-indigo-100 transition-colors"
+                  aria-label="Edit event"
+                >
+                  <FiEdit size={18} />
+                </button>
 
-            <button
-              onClick={() => onDeleteClick(event.id)}
-              className="p-2 text-red-600 bg-red-50 rounded-md hover:bg-red-100 transition-colors"
-              aria-label="Delete event"
-            >
-              <FiTrash2 size={18} />
-            </button>
+                <button
+                  onClick={() => onDeleteClick(event.id)}
+                  className="p-2 text-red-600 bg-red-50 rounded-md hover:bg-red-100 transition-colors"
+                  aria-label="Delete event"
+                >
+                  <FiTrash2 size={18} />
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>

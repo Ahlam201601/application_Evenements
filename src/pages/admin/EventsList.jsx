@@ -52,6 +52,7 @@ export default function EventsList() {
               setDeleteEventId(id); 
               setShowDelete(true); 
             }}  
+            isAdmin={true}
           />
         ))}
       </div>
