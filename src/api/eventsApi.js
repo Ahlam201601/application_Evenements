@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL="https://694d3a67ad0f8c8e6e201984.mockapi.io/api/v1"
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const EventPost = async (eventData) => {
   const response = await axios.post(`${BASE_URL}/events`, eventData);
@@ -19,5 +19,5 @@ export const deleteEvent = (id) => {
 };
 
 export const updateEvent = (id, data) => {
-  return axios.put(`${BASE_URL}/${id}`, data);
+  return axios.put(`${BASE_URL}/events/${id}`,data);
 };

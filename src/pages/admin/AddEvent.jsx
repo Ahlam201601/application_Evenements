@@ -4,6 +4,8 @@ import { useState } from "react";
 import { EventPost } from "../../api/eventsApi";
 import toast from "react-hot-toast";
 
+const CLOUDINARY_UPLOAD_URL = import.meta.env.VITE_CLOUDINARY_UPLOAD_URL;
+
 export default function AddEvent() {
   const [form, setForm] = useState({
     title: "",
@@ -32,7 +34,7 @@ export default function AddEvent() {
     formData.append("upload_preset", "events");
 
     const res = await fetch(
-      "https://api.cloudinary.com/v1_1/dqhakngxl/image/upload",
+      CLOUDINARY_UPLOAD_URL,
       { method: "POST", body: formData }
     );
 
