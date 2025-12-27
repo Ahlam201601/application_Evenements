@@ -16,26 +16,25 @@ export default function EventCard({ event, onDeleteClick, isAdmin }) {
             alt={event.title}
             className="w-full h-full object-cover"
           />
-
-          {/* PRICE */}
-          <span className="absolute top-3 right-3 bg-indigo-600 text-white text-xs sm:text-sm font-bold px-3 py-1 rounded-full shadow">
-            ${event.price}
-          </span>
         </div>
 
         {/* CONTENT */}
         <div className="p-4 sm:p-5 space-y-2 sm:space-y-3">
 
-          {/* TITLE + CATEGORY */}
-          <div className="flex items-center justify-between gap-2">
-            <h2 className="text-lg sm:text-xl font-bold text-gray-900 line-clamp-1">
-              {event.title}
-            </h2>
+          {/* CATEGORY */}
+          <span className="inline-block bg-yellow-100 text-yellow-700 font-semibold px-3 py-1 rounded-full text-xs sm:text-sm mb-1">
+            {event.category}
+          </span>
 
-            <span className="bg-yellow-100 text-yellow-700 font-semibold px-2 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs">
-              {event.category}
-            </span>
-          </div>
+          {/* TITLE */}
+          <h2 className="text-lg sm:text-xl font-bold text-gray-900 line-clamp-1">
+            {event.title}
+          </h2>
+
+          {/* PRICE */}
+          <p className="text-indigo-600 font-bold text-sm sm:text-base">
+            ${event.price}
+          </p>
 
           {/* DATE + LOCATION */}
           <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-gray-600 mt-1">
