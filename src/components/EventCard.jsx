@@ -1,4 +1,4 @@
-import { FiCalendar, FiMapPin, FiEdit, FiTrash2 } from "react-icons/fi";
+import { FiCalendar, FiMapPin, FiEdit, FiTrash2 , FiShoppingCart} from "react-icons/fi";
 import { useState } from "react";
 import EditEvent from "../pages/admin/EditEvent";
 
@@ -7,77 +7,84 @@ export default function EventCard({ event, onDeleteClick, isAdmin }) {
 
   return (
     <>
-      <div className="bg-white rounded-2xl border border-indigo-100 overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 w-full max-w-sm mx-auto">
-
+      <div className="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 w-full max-w-xs mx-auto">
         {/* IMAGE */}
-        <div className="relative h-44 sm:h-48 md:h-52 lg:h-56">
+        <div className="relative h-36 sm:h-40 overflow-hidden">
           <img
             src={event.image}
             alt={event.title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover brightness-90 hover:scale-110 transition-transform duration-500"
           />
+          <div className="absolute inset-0 bg-linear-to-t from-gray-900/80 via-transparent to-transparent"></div>
         </div>
 
         {/* CONTENT */}
-        <div className="p-4 sm:p-5 space-y-2 sm:space-y-3">
-
-          {/* CATEGORY */}
-          <span className="inline-block bg-yellow-100 text-yellow-700 font-semibold px-3 py-1 rounded-full text-xs sm:text-sm mb-1">
-            {event.category}
-          </span>
-
-          {/* TITLE */}
-          <h2 className="text-lg sm:text-xl font-bold text-gray-900 line-clamp-1">
-            {event.title}
-          </h2>
-
-          {/* PRICE */}
-          <p className="text-indigo-600 font-bold text-sm sm:text-base">
-            ${event.price}
-          </p>
-
-          {/* DATE + LOCATION */}
-          <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-gray-600 mt-1">
-            <div className="flex items-center gap-1">
-              <FiCalendar />
-              {event.date}
-            </div>
-
-            <div className="flex items-center gap-1">
-              <FiMapPin />
-              {event.location}
+        <div className="p-3 sm:p-4 space-y-2">
+          {/* TITLE + PRICE */}
+          <div className="flex items-start justify-between">
+            <h2 className="text-base sm:text-lg font-bold text-white leading-tight flex-1 line-clamp-1">
+              {event.title}
+            </h2>
+            <div className="text-right shrink-0">
+              <p className="text-sm sm:text-base font-bold text-indigo-400">
+                ${event.price}
+              </p>
             </div>
           </div>
 
           {/* DESCRIPTION */}
-          <p className="text-gray-500 text-xs sm:text-sm leading-relaxed line-clamp-2 sm:line-clamp-3">
+          <p className="text-slate-400 text-xs leading-relaxed line-clamp-1">
             {event.description}
           </p>
 
+          {/* SEPARATOR */}
+          <div className="border-t border-slate-700 my-2"></div>
+
+          {/* CATEGORY */}
+          <div className="flex items-center">
+            <span className="text-[10px] text-slate-400 bg-slate-700/50 px-2 py-0.5 rounded-full">
+              {event.category}
+            </span>
+          </div>
+
+          {/* DATE + LOCATION */}
+          <div className="flex flex-col gap-1.5 text-xs text-slate-300">
+            <div className="flex items-center gap-1.5">
+              <FiCalendar className="text-indigo-400" size={14} />
+              <span className="line-clamp-1">{event.date}</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <FiMapPin className="text-indigo-400" size={14} />
+              <span className="line-clamp-1">{event.location}</span>
+            </div>
+          </div>
+
           {/* ACTION BUTTONS */}
-          <div className="flex justify-end gap-2 pt-3 sm:pt-4">
+          <div className="flex gap-2 pt-2">
             {!isAdmin ? (
-              <button
-                className="p-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-700 transition-colors"
-              >
-                View
-              </button>
+              <>
+                <button 
+                  className="flex-1 py-2 text-sm text-white font-medium bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-all duration-300 shadow-md shadow-indigo-500/30 flex items-center justify-center gap-2"
+                >
+                  <FiShoppingCart size={16} />
+                  Add To Cart
+                </button>
+              </>
             ) : (
               <>
                 <button
                   onClick={() => setEditEvent(true)}
-                  className="p-2 text-indigo-600 bg-indigo-50 rounded-md hover:bg-indigo-100 transition-colors"
+                  className="flex-1 p-2 text-indigo-400 bg-slate-800 border border-indigo-500/30 rounded-lg hover:bg-slate-700 transition-colors"
                   aria-label="Edit event"
                 >
-                  <FiEdit size={18} />
+                  <FiEdit size={16} className="mx-auto" />
                 </button>
-
                 <button
                   onClick={() => onDeleteClick(event.id)}
-                  className="p-2 text-red-600 bg-red-50 rounded-md hover:bg-red-100 transition-colors"
+                  className="flex-1 p-2 text-red-400 bg-slate-800 border border-red-500/30 rounded-lg hover:bg-slate-700 transition-colors"
                   aria-label="Delete event"
                 >
-                  <FiTrash2 size={18} />
+                  <FiTrash2 size={16} className="mx-auto" />
                 </button>
               </>
             )}
@@ -87,11 +94,8 @@ export default function EventCard({ event, onDeleteClick, isAdmin }) {
 
       {/* EDIT POPUP */}
       {editEvent && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 px-3">
-          <EditEvent 
-            event={event} 
-            onClose={() => setEditEvent(false)} 
-          />
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 px-3">
+          <EditEvent event={event} onClose={() => setEditEvent(false)} />
         </div>
       )}
     </>
