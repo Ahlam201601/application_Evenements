@@ -10,22 +10,14 @@ export default function AdminSidebar() {
       <nav className="flex flex-col gap-2 px-4">
         <NavLink
           to="/admin/events"
-          className={({ isActive }) =>
-            `px-4 py-2 rounded ${
-              isActive ? "bg-green-500 text-white" : "hover:bg-gray-100"
-            }`
-          }
+          className="hover:bg-gray-100"
         >
           Events
         </NavLink>
 
         <NavLink
           to="/admin/orders"
-          className={({ isActive }) =>
-            `px-4 py-2 rounded ${
-              isActive ? "bg-green-500 text-white" : "hover:bg-gray-100"
-            }`
-          }
+          className="hover:bg-gray-100"
         >
           Orders
         </NavLink>

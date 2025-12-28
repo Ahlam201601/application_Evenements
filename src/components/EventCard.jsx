@@ -1,9 +1,12 @@
 import { FiCalendar, FiMapPin, FiEdit, FiTrash2 , FiShoppingCart} from "react-icons/fi";
 import { useState } from "react";
 import EditEvent from "../pages/admin/EditEvent";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../lib/cartSlice";
 
 export default function EventCard({ event, onDeleteClick, isAdmin }) {
   const [editEvent, setEditEvent] = useState(false);
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -64,6 +67,7 @@ export default function EventCard({ event, onDeleteClick, isAdmin }) {
             {!isAdmin ? (
               <>
                 <button 
+                  onClick={() => dispatch(addToCart(event))}
                   className="flex-1 py-2 text-sm text-white font-medium bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-all duration-300 shadow-md shadow-indigo-500/30 flex items-center justify-center gap-2"
                 >
                   <FiShoppingCart size={16} />
