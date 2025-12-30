@@ -7,7 +7,8 @@ import { Toaster } from "react-hot-toast";
 import './App.css';
 import Events from './pages/Events';
 import Navbar from './components/Navbar';
-import AdminSidebar from './components/admin/AdminSidebar';
+import Checkout from './pages/Checkout';
+
 
 function AppContent() {
   const location = useLocation();
@@ -29,6 +30,7 @@ function AppContent() {
         <Route path="/admin/add" element={<AddEvent/>} /> 
         <Route path='/events' element={<Events/>}/>
         <Route path="/admin/orders" element={<Orders/>} /> 
+        <Route path='/checkout' element={<Checkout/>} />
       </Routes>
     </>
   );

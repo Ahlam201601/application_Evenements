@@ -69,7 +69,7 @@ export default function CardItem({ item }) {
       <div className="mt-3 pt-3 border-t border-slate-700 flex items-center justify-between">
         <span className="text-sm text-slate-400">Subtotal:</span>
         <span className="text-white font-bold text-lg">
-          ${(item.price * item.quantity).toFixed(2)}
+          ${(item.price * item.quantity)}
         </span>
       </div>
     </div>

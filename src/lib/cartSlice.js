@@ -3,11 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const savedCart = localStorage.getItem("cart")
   ? JSON.parse(localStorage.getItem("cart"))
-  : { items: [], totalQuantity: 0, };
+  : { items: [], totalQuantity: 0, totalPrice: 0};
+
 
 const initialState = {
-  items: savedCart.items || [],
-  totalQuantity: savedCart.totalQuantity || 0,
+  items: savedCart.items,
+  totalQuantity: savedCart.totalQuantity,
+  totalPrice: savedCart.totalPrice,
 };
 const saveCart = (state) => {
   localStorage.setItem("cart", JSON.stringify(state));
@@ -30,20 +32,25 @@ const cartSlice = createSlice({
         });
       }
       state.totalQuantity++;
+      state.totalPrice += Number(newItem.price);
+
       saveCart(state);
     },
     removeCart: (state, action) => {
       const exist = state.items.find((i) => i.id === action.payload);
       if (exist) {
         state.totalQuantity -= exist.quantity;
+        state.totalPrice -= Number(exist.price) * exist.quantity;
         state.items = state.items.filter((i) => i.id !== action.payload);
       }
+      saveCart(state);
     },
     increaseQuantity: (state, action) => {
       const item = state.items.find((i) => i.id === action.payload);
       if (item) {
         item.quantity += 1;
         state.totalQuantity += 1;
+        state.totalPrice += Number(item.price);
       }
       saveCart(state);
     },
@@ -53,6 +60,7 @@ const cartSlice = createSlice({
         // ✅ seulement si quantity > 1
         item.quantity -= 1;
         state.totalQuantity -= 1;
+        state.totalPrice -= Number(item.price);
       }
       saveCart(state);
     },

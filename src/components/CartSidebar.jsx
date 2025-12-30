@@ -1,9 +1,16 @@
 import { useSelector } from "react-redux";
 import { FiX, FiShoppingCart } from "react-icons/fi";
 import CardItem from "./CardItem";
+import { useNavigate } from "react-router-dom";
 
 export default function CartSidebar({ open, onClose }) {
-  const { items, totalQuantity } = useSelector((state) => state.cart);
+  const { 
+  items = [], 
+  totalQuantity = 0, 
+  totalPrice = 0 
+} = useSelector((state) => state.cart) || {};
+  
+  const navigate = useNavigate();
 
   return (
     <div
@@ -49,9 +56,7 @@ export default function CartSidebar({ open, onClose }) {
               <h3 className="text-xl font-semibold text-white mb-2">
                 Your cart is empty
               </h3>
-              <p className="text-slate-400 mb-6">
-                Start adding some events!
-              </p>
+              <p className="text-slate-400 mb-6">Start adding some events!</p>
               <button
                 onClick={onClose}
                 className="bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors"
@@ -65,16 +70,31 @@ export default function CartSidebar({ open, onClose }) {
         {/* FOOTER - SUMMARY */}
         {items.length > 0 && (
           <div className="bg-gray-800 border-t border-slate-700 p-5 space-y-3">
-            {/* TOTAL PRICE */}
-            <div className="flex items-center justify-between text-lg">
-              <span className="font-semibold text-white">Total Items::</span>
-              <span className="font-bold text-indigo-400 text-2xl">
-                {totalQuantity}
-              </span>
+            {/* TOTAL */}
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-slate-300 font-medium">Total Items:</span>
+                <span className="text-white font-bold text-lg">
+                  {totalQuantity}
+                </span>
+              </div>
+
+              <div className="border-t border-slate-700 pt-3 flex items-center justify-between">
+                <span className="text-white font-bold text-lg">Total:</span>
+                <span className="text-indigo-400 font-bold text-2xl">
+                  ${totalPrice}
+                </span>
+              </div>
             </div>
 
             {/* CHECKOUT BUTTON */}
-            <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg font-semibold shadow-lg shadow-indigo-600/30 transition-all duration-300">
+            <button
+              onClick={() => {
+                onClose();
+                navigate("/checkout");
+              }}
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg font-semibold shadow-lg shadow-indigo-600/30 transition-all duration-300"
+            >
               Proceed to Checkout
             </button>
           </div>
