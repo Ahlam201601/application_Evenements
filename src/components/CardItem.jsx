@@ -1,9 +1,5 @@
 import { useDispatch } from "react-redux";
-import {
-  removeCart,
-  decreaseQuantity,
-  increaseQuantity
-} from "../lib/cartSlice";
+import { removeCart, decreaseQuantity, increaseQuantity } from "../lib/cartSlice";
 import { FiTrash2, FiMinus, FiPlus } from "react-icons/fi";
 
 export default function CardItem({ item }) {
@@ -16,25 +12,32 @@ export default function CardItem({ item }) {
         <div className="shrink-0">
           <img
             src={item.image}
-            alt={item.name}
+            alt={item.title}
             className="w-20 h-20 object-cover rounded-lg"
           />
         </div>
 
         {/* CONTENT */}
-        <div className="flex-1 min-w-0">
+        <div className="flex-1 min-w-0 space-y-1">
           {/* TITLE */}
-          <h3 className="font-semibold text-white mb-1 line-clamp-1">
-            {item.name}
+          <h3 className="font-semibold text-white text-lg line-clamp-1">
+            {item.title}
           </h3>
 
+          {/* CATEGORY */}
+          <div className="flex flex-wrap gap-2 mt-1">
+            {item.category && (
+              <span className="text-xs text-slate-400 bg-slate-700/50 px-2 py-0.5 rounded-full">
+                {item.category}
+              </span>
+            )}
+          </div>
+
           {/* PRICE */}
-          <p className="text-indigo-400 font-bold text-lg mb-2">
-            ${item.price}
-          </p>
+          <p className="text-indigo-400 font-bold text-lg mt-2">${item.price}</p>
 
           {/* QUANTITY CONTROLS */}
-          <div className="flex items-center gap-2 bg-slate-700 rounded-lg p-1 w-fit">
+          <div className="flex items-center gap-2 bg-slate-700 rounded-lg p-1 w-fit mt-1">
             <button
               onClick={() => dispatch(decreaseQuantity(item.id))}
               className="w-7 h-7 bg-slate-600 hover:bg-indigo-600 text-white rounded-md flex items-center justify-center transition-colors"
@@ -65,11 +68,11 @@ export default function CardItem({ item }) {
         </button>
       </div>
 
-      {/* TOTAL */}
+      {/* SUBTOTAL */}
       <div className="mt-3 pt-3 border-t border-slate-700 flex items-center justify-between">
         <span className="text-sm text-slate-400">Subtotal:</span>
         <span className="text-white font-bold text-lg">
-          ${(item.price * item.quantity)}
+          ${item.price * item.quantity}
         </span>
       </div>
     </div>

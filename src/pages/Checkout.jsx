@@ -1,47 +1,63 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { FiShoppingCart, FiUser, FiMail, FiPhone, FiCheckCircle } from "react-icons/fi";
+import { FiShoppingCart, FiCheckCircle } from "react-icons/fi";
+import { clearCart } from "../lib/cartSlice";
+import { createOrder } from "../api/orderApi";
+import toast from "react-hot-toast";
 
 export default function Checkout() {
-  const { items, totalQuantity , totalPrice} = useSelector((state) => state.cart);
-  
-
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-  });
+  const { items, totalQuantity, totalPrice } = useSelector(
+    (state) => state.cart
+  );
+  const [form, setForm] = useState({ name: "", email: "", phone: "" });
+  const [errors, setErrors] = useState({});
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!form.name || !form.email || !form.phone) {
-      alert("Please fill in all fields!");
-      return;
+    let newErrors = {};
+    if (!form.name.trim()) newErrors.name = "Full name is required";
+    if (!form.email.trim()) {
+    newErrors.email = "Email is required";
+  } else {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(form.email)) {
+      newErrors.email = "Invalid email format";
     }
-    alert("Order placed successfully 🎉");
+  }
+    if (!form.phone.trim()) newErrors.phone = "Phone number is required";
+    setErrors(newErrors);
+
+    try {
+      createOrder({
+        customerName: form.name,
+        email: form.email,
+        phone: form.phone,
+        total: totalPrice,
+        items,
+      });
+
+      dispatch(clearCart());
+      toast.success("Order placed successfully 🎉");
+    } catch (error) {
+      console.error(error);
+      toast.error("Order failed ❌");
+    }
   };
 
   return (
     <div className="min-h-screen bg-gray-100 pt-24 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* HEADER */}
-        <div className="mb-8">
-          <h1 className="text-3xl sm:text-4xl font-bold text-indigo-600 mb-2">
-            Checkout
-          </h1>
-          <p className="text-slate-900">
-            Review your order and complete your purchase
-          </p>
-        </div>
+        <h1 className="text-3xl sm:text-4xl font-bold text-indigo-600 mb-2">
+          Checkout
+        </h1>
+        <p className="text-slate-900 mb-6">
+          Review your order and complete your purchase
+        </p>
 
-        {/* GRID LAYOUT - CART + FORM */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          
-          {/* LEFT SIDE - CART ITEMS (2 columns) */}
+          {/* LEFT SIDE - CART ITEMS + TOTAL */}
           <div className="lg:col-span-2 space-y-6">
-            
-            {/* CART ITEMS SECTION */}
             <div className="bg-gray-800 border border-slate-700 rounded-2xl p-6">
               <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
                 <FiShoppingCart className="text-indigo-400" size={24} />
@@ -49,144 +65,108 @@ export default function Checkout() {
               </h2>
 
               {items.length === 0 ? (
-                <div className="text-center py-12">
-                  <FiShoppingCart className="mx-auto text-slate-600 mb-4" size={64} />
-                  <p className="text-slate-400">Your cart is empty</p>
-                </div>
+                <p className="text-slate-400 text-center py-12">
+                  Your cart is empty
+                </p>
               ) : (
                 <div className="space-y-3">
                   {items.map((item) => (
                     <div
                       key={item.id}
-                      className="bg-slate-900 border border-slate-700 rounded-xl p-4 hover:border-indigo-500/50 transition-all"
+                      className="bg-slate-900 border border-slate-700 rounded-xl p-4 flex gap-4"
                     >
-                      <div className="flex gap-4">
-                        {/* IMAGE */}
-                        <div className="shrink-0">
-                          <img
-                            src={item.image}
-                            alt={item.title}
-                            className="w-20 h-20 object-cover rounded-lg"
-                          />
-                        </div>
-
-                        {/* CONTENT */}
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-white mb-1 line-clamp-1">
-                            {item.title}
-                          </h3>
-                          <span className="inline-block text-xs text-slate-400 bg-slate-700/50 px-2 py-0.5 rounded-full mb-2">
-                            {item.category}
-                          </span>
-                          <div className="flex items-center justify-between mt-2">
-                            <span className="text-sm text-slate-400">
-                              Qty: <span className="text-white font-semibold">{item.quantity}</span>
-                            </span>
-                            <p className="text-indigo-400 font-bold text-lg">
-                              ${item.price}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* SUBTOTAL */}
-                      <div className="mt-3 pt-3 border-t border-slate-700 flex items-center justify-between">
-                        <span className="text-sm text-slate-400">Subtotal:</span>
-                        <span className="text-white font-bold">
-                          ${(item.price * item.quantity)}
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-24 h-24 object-cover rounded-lg"
+                      />
+                      <div className="flex-1 text-white">
+                        <h3 className="font-semibold">{item.title}</h3>
+                        <p className="text-slate-400 text-sm">
+                          {item.description}
+                        </p>
+                        <span className="inline-block text-xs text-slate-400 bg-slate-700/50 px-2 py-0.5 rounded-full mt-1">
+                          {item.category}
                         </span>
+                        <div className="flex justify-between mt-2">
+                          <span>Qty: {item.quantity}</span>
+                          <span className="text-indigo-400 font-bold">
+                            ${item.price}
+                          </span>
+                        </div>
+                        <div className="mt-2 flex justify-between border-t border-slate-700 pt-1">
+                          <span className="text-sm text-slate-400">
+                            Subtotal:
+                          </span>
+                          <span className="font-bold">
+                            ${item.price * item.quantity}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   ))}
+
+                  {/* TOTAL */}
+                  <div className="mt-4 pt-3 border-t border-slate-700 flex justify-between text-xl text-white font-bold">
+                    <span>Total:</span>
+                    <span className="text-indigo-400">${totalPrice}</span>
+                  </div>
                 </div>
               )}
             </div>
-
-            {/* TOTAL SECTION */}
-            {items.length > 0 && (
-              <div className="bg-gray-800 border border-slate-700 rounded-2xl p-6">
-                <div className="space-y-3">
-                  <div className="border-t border-slate-700 pt-3 flex items-center justify-between text-xl">
-                    <span className="font-bold text-white">Total:</span>
-                    <span className="font-bold text-indigo-400 text-2xl">
-                      ${totalPrice}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
 
-          {/* RIGHT SIDE - ORDER FORM (1 column) */}
+          {/* RIGHT SIDE - ORDER FORM */}
           <div className="lg:col-span-1">
             <div className="bg-gray-800 border border-slate-700 rounded-2xl p-6 sticky top-24">
               <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                <FiCheckCircle className="text-indigo-400" size={24} />
-                Order Details
+                <FiCheckCircle className="text-indigo-400" size={24} /> Order
+                Details
               </h2>
 
               <form onSubmit={handleSubmit} className="space-y-4">
-                {/* NAME */}
-                <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">
-                    Full Name
-                  </label>
-                  <div className="relative">
-                    <FiUser className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-                    <input
-                      type="text"
-                      placeholder="John Doe"
-                      className="w-full bg-slate-700 text-white placeholder-slate-400 border-2 border-slate-600 rounded-lg pl-10 pr-4 py-3 focus:border-indigo-500 focus:outline-none transition-colors"
-                      value={form.name}
-                      onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    />
-                  </div>
-                </div>
+                <input
+                  type="text"
+                  placeholder="Full Name"
+                  className="w-full bg-slate-700 text-white border-2 border-slate-600 rounded-lg p-3"
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                />
+                {errors.name && (
+                  <p className="text-red-400 text-sm">{errors.name}</p>
+                )}
 
-                {/* EMAIL */}
-                <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">
-                    Email Address
-                  </label>
-                  <div className="relative">
-                    <FiMail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-                    <input
-                      type="email"
-                      placeholder="john@example.com"
-                      className="w-full bg-slate-700 text-white placeholder-slate-400 border-2 border-slate-600 rounded-lg pl-10 pr-4 py-3 focus:border-indigo-500 focus:outline-none transition-colors"
-                      value={form.email}
-                      onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    />
-                  </div>
-                </div>
+                <input
+                  type="email"
+                  placeholder="Email Address"
+                  className="w-full bg-slate-700 text-white border-2 border-slate-600 rounded-lg p-3"
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                />
+                {errors.email && (
+                  <p className="text-red-400 text-sm">{errors.email}</p>
+                )}
 
-                {/* PHONE */}
-                <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">
-                    Phone Number
-                  </label>
-                  <div className="relative">
-                    <FiPhone className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-                    <input
-                      type="tel"
-                      placeholder="+212 6XX XXX XXX"
-                      className="w-full bg-slate-700 text-white placeholder-slate-400 border-2 border-slate-600 rounded-lg pl-10 pr-4 py-3 focus:border-indigo-500 focus:outline-none transition-colors"
-                      value={form.phone}
-                      onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                    />
-                  </div>
-                </div>
+                <input
+                  type="tel"
+                  placeholder="Phone Number"
+                  className="w-full bg-slate-700 text-white border-2 border-slate-600 rounded-lg p-3"
+                  value={form.phone}
+                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                />
+                {errors.phone && (
+                  <p className="text-red-400 text-sm">{errors.phone}</p>
+                )}
 
-                {/* SUBMIT BUTTON */}
                 <button
+                  onClick={handleSubmit}
                   type="submit"
                   disabled={items.length === 0}
-                  className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-600 disabled:cursor-not-allowed text-white py-3 rounded-lg font-semibold shadow-lg shadow-indigo-600/30 transition-all duration-300 mt-6"
+                  className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-600 text-white py-3 rounded-lg font-semibold mt-4"
                 >
                   Place Order
                 </button>
               </form>
-              
             </div>
           </div>
         </div>
