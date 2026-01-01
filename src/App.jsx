@@ -7,6 +7,7 @@ import './App.css';
 import Events from './pages/Events';
 import Navbar from './components/Navbar';
 import Checkout from './pages/Checkout';
+import Login from './pages/admin/Login';
 
 
 
@@ -30,6 +31,8 @@ function AppContent() {
         <Route path="/admin/add" element={<AddEvent/>} /> 
         <Route path='/events' element={<Events/>}/>
         <Route path='/checkout' element={<Checkout/>} />
+        <Route path='/Login' element={<Login/>} />
+        
       </Routes>
     </>
   );
