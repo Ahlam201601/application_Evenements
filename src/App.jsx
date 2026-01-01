@@ -8,6 +8,7 @@ import Events from './pages/Events';
 import Navbar from './components/Navbar';
 import Checkout from './pages/Checkout';
 import Login from './pages/admin/Login';
+import Contact from './pages/Contact';
 
 
 
@@ -32,6 +33,7 @@ function AppContent() {
         <Route path='/events' element={<Events/>}/>
         <Route path='/checkout' element={<Checkout/>} />
         <Route path='/Login' element={<Login/>} />
+        <Route path='/contact' element={<Contact/>} />
         
       </Routes>
     </>

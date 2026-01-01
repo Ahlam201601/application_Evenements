@@ -15,14 +15,14 @@ const Login = ({ onLogin }) => {
     let hasError = false;
 
     if (!email.trim()) {
-      setEmailError("L'email est requis !");
+      setEmailError("Email is required!");
       hasError = true;
     } else {
       setEmailError("");
     }
 
     if (!password.trim()) {
-      setPasswordError("Le mot de passe est requis !");
+      setPasswordError("Password is required!");
       hasError = true;
     } else {
       setPasswordError("");
@@ -31,28 +31,30 @@ const Login = ({ onLogin }) => {
     if (hasError) return;
 
     if (onLogin(email, password)) {
-      toast.success("Connexion réussie !");
+      toast.success("Login successful!");
       navigate("/admin");
     } else {
-      toast.error("Email ou mot de passe incorrect");
+      toast.error("Incorrect email or password");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 bg-linear-to-br bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center px-6 bg-gray-100">
       <div className="w-full max-w-md bg-slate-900/80 border border-white/10 backdrop-blur-xl shadow-2xl rounded-2xl p-8">
+        
         {/* HEADER */}
         <div className="text-center mb-8">
           <h1 className="text-white text-2xl font-bold mb-1">
             🗂️ EventSphere Admin
           </h1>
           <p className="text-slate-400 text-sm">
-            Connectez-vous pour continuer
+            Login to continue
           </p>
         </div>
 
         {/* FORM */}
         <form onSubmit={handleSubmit} className="space-y-5">
+
           {/* EMAIL */}
           <div>
             <label className="text-white/90 font-semibold text-sm block mb-1">
@@ -68,7 +70,7 @@ const Login = ({ onLogin }) => {
                 if (e.target.value.trim()) setEmailError("");
               }}
               onBlur={(e) => {
-                if (!e.target.value.trim()) setEmailError("L'email est requis !");
+                if (!e.target.value.trim()) setEmailError("Email is required!");
               }}
             />
             {emailError && (
@@ -81,7 +83,7 @@ const Login = ({ onLogin }) => {
           {/* PASSWORD */}
           <div>
             <label className="text-white/90 font-semibold text-sm block mb-1">
-              Mot de passe
+              Password
             </label>
             <input
               type="password"
@@ -94,7 +96,7 @@ const Login = ({ onLogin }) => {
               }}
               onBlur={(e) => {
                 if (!e.target.value.trim())
-                  setPasswordError("Le mot de passe est requis !");
+                  setPasswordError("Password is required!");
               }}
             />
             {passwordError && (
@@ -109,7 +111,7 @@ const Login = ({ onLogin }) => {
             type="submit"
             className="w-full bg-indigo-500 hover:bg-indigo-600 transition text-white font-semibold py-3 rounded-xl mt-2"
           >
-            Se connecter
+            Login
           </button>
         </form>
       </div>
