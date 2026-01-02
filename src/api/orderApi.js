@@ -7,6 +7,13 @@ export const createOrder = async (orderData) => {
   return res.data;
 };
 
+export const placeOrder = async (orderData) => {
+  return await axios.post(
+    import.meta.env.VITE_N8N_WEBHOOK_URL,
+    orderData
+  );
+};
+
 export const getOrders = () => {
   return axios.get(`${BASE_URL}/orders`);
 };

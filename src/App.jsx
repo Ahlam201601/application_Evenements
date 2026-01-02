@@ -9,6 +9,7 @@ import Navbar from './components/Navbar';
 import Checkout from './pages/Checkout';
 import Login from './pages/admin/Login';
 import Contact from './pages/Contact';
+import Footer from './components/Footer';
 
 
 
@@ -36,6 +37,7 @@ function AppContent() {
         <Route path='/contact' element={<Contact/>} />
         
       </Routes>
+      <Footer/>
     </>
   );
 }

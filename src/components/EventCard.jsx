@@ -1,4 +1,4 @@
-import { FiCalendar, FiMapPin, FiEdit, FiTrash2 , FiShoppingCart} from "react-icons/fi";
+import { FiCalendar, FiMapPin, FiEdit, FiTrash2, FiShoppingCart } from "react-icons/fi";
 import { useState } from "react";
 import EditEvent from "../pages/admin/EditEvent";
 import { useDispatch } from "react-redux";
@@ -10,7 +10,7 @@ export default function EventCard({ event, onDeleteClick, isAdmin }) {
 
   return (
     <>
-      <div className="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 w-full max-w-xs mx-auto">
+      <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden shadow-xl hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 w-full max-w-xs mx-auto border border-gray-700">
         {/* IMAGE */}
         <div className="relative h-36 sm:h-40 overflow-hidden">
           <img
@@ -18,46 +18,39 @@ export default function EventCard({ event, onDeleteClick, isAdmin }) {
             alt={event.title}
             className="w-full h-full object-cover brightness-90 hover:scale-110 transition-transform duration-500"
           />
-          <div className="absolute inset-0 bg-linear-to-t from-gray-900/80 via-transparent to-transparent"></div>
+          <div className="absolute inset-0 bg-linear-to-t from-gray-900/90 via-transparent to-transparent"></div>
+          {/* CATEGORY BADGE */}
+          <div className="absolute top-3 right-3 bg-[#f91942] text-white font-bold px-3 py-1 rounded-full text-sm shadow-lg shadow-[#f91942]/30">
+            {event.category}
+          </div>
         </div>
 
         {/* CONTENT */}
-        <div className="p-3 sm:p-4 space-y-2">
-          {/* TITLE + PRICE */}
+        <div className="p-3 sm:p-4 space-y-3">
+          {/* TITLE AND PRICE */}
           <div className="flex items-start justify-between">
             <h2 className="text-base sm:text-lg font-bold text-white leading-tight flex-1 line-clamp-1">
               {event.title}
             </h2>
-            <div className="text-right shrink-0">
-              <p className="text-sm sm:text-base font-bold text-indigo-400">
-                ${event.price}
-              </p>
+            <div className="text-right shrink-0 ml-2">
+              <div className="text-sm text-gray-400">From</div>
+              <div className="text-xl font-bold text-[#f91942]">${event.price}</div>
             </div>
           </div>
 
           {/* DESCRIPTION */}
-          <p className="text-slate-400 text-xs leading-relaxed line-clamp-1">
+          <p className="text-gray-400 text-xs leading-relaxed line-clamp-2">
             {event.description}
           </p>
 
-          {/* SEPARATOR */}
-          <div className="border-t border-slate-700 my-2"></div>
-
-          {/* CATEGORY */}
-          <div className="flex items-center">
-            <span className="text-[10px] text-slate-400 bg-slate-700/50 px-2 py-0.5 rounded-full">
-              {event.category}
-            </span>
-          </div>
-
           {/* DATE + LOCATION */}
-          <div className="flex flex-col gap-1.5 text-xs text-slate-300">
-            <div className="flex items-center gap-1.5">
-              <FiCalendar className="text-indigo-400" size={14} />
+          <div className="flex flex-col gap-2 text-xs text-gray-300">
+            <div className="flex items-center gap-2">
+              <FiCalendar className="text-[#f91942]" size={14} />
               <span className="line-clamp-1">{event.date}</span>
             </div>
-            <div className="flex items-center gap-1.5">
-              <FiMapPin className="text-indigo-400" size={14} />
+            <div className="flex items-center gap-2">
+              <FiMapPin className="text-[#f91942]" size={14} />
               <span className="line-clamp-1">{event.location}</span>
             </div>
           </div>
@@ -68,7 +61,7 @@ export default function EventCard({ event, onDeleteClick, isAdmin }) {
               <>
                 <button 
                   onClick={() => dispatch(addToCart(event))}
-                  className="flex-1 py-2 text-sm text-white font-medium bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-all duration-300 shadow-md shadow-indigo-500/30 flex items-center justify-center gap-2"
+                  className="flex-1 py-2.5 text-sm text-white font-medium bg-[#f91942] hover:bg-[#e0183b] rounded-lg transition-all duration-300 shadow-lg shadow-[#f91942]/20 flex items-center justify-center gap-2"
                 >
                   <FiShoppingCart size={16} />
                   Add To Cart
@@ -78,17 +71,17 @@ export default function EventCard({ event, onDeleteClick, isAdmin }) {
               <>
                 <button
                   onClick={() => setEditEvent(true)}
-                  className="flex-1 p-2 text-indigo-400 bg-slate-800 border border-indigo-500/30 rounded-lg hover:bg-slate-700 transition-colors"
+                  className="flex-1 p-2.5 text-white bg-gray-700/50 border border-gray-600 rounded-lg hover:bg-[#f91942] hover:border-[#f91942] transition-colors group"
                   aria-label="Edit event"
                 >
-                  <FiEdit size={16} className="mx-auto" />
+                  <FiEdit size={16} className="mx-auto group-hover:scale-110 transition-transform" />
                 </button>
                 <button
                   onClick={() => onDeleteClick(event.id)}
-                  className="flex-1 p-2 text-red-400 bg-slate-800 border border-red-500/30 rounded-lg hover:bg-slate-700 transition-colors"
+                  className="flex-1 p-2.5 text-white bg-gray-700/50 border border-gray-600 rounded-lg hover:bg-red-600 hover:border-red-600 transition-colors group"
                   aria-label="Delete event"
                 >
-                  <FiTrash2 size={16} className="mx-auto" />
+                  <FiTrash2 size={16} className="mx-auto group-hover:scale-110 transition-transform" />
                 </button>
               </>
             )}
@@ -98,7 +91,7 @@ export default function EventCard({ event, onDeleteClick, isAdmin }) {
 
       {/* EDIT POPUP */}
       {editEvent && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 px-3">
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 px-3">
           <EditEvent event={event} onClose={() => setEditEvent(false)} />
         </div>
       )}
