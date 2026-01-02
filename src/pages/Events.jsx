@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { getEvents } from "../api/eventsApi";
 import EventCard from "../components/EventCard";
 import { FaFilter, FaSearch } from "react-icons/fa";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 export default function Events() {
   const [events, setEvents] = useState([]);
@@ -24,6 +26,8 @@ export default function Events() {
   });
 
   return (
+    <>
+    <Navbar/>
     <div className="min-h-screen bg-linear-to-br from-gray-900 via-gray-800 to-gray-900">
       <div className="w-full px-4 sm:px-6 lg:px-8 py-8 pt-24">
         
@@ -109,5 +113,7 @@ export default function Events() {
         )}
       </div>
     </div>
+    <Footer/>
+    </>
   );
 }

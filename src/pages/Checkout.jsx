@@ -4,6 +4,8 @@ import { FiShoppingCart, FiCheckCircle, FiUser, FiMail, FiPhone } from "react-ic
 import { clearCart } from "../lib/cartSlice";
 import { createOrder, placeOrder } from "../api/orderApi";
 import toast from "react-hot-toast";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 export default function Checkout() {
   const { items, totalPrice } = useSelector(
@@ -65,6 +67,8 @@ export default function Checkout() {
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="min-h-screen bg-linear-to-br from-gray-900 via-gray-800 to-gray-900 pt-24 pb-12 px-4">
       <div className="max-w-6xl mx-auto">
         
@@ -243,5 +247,7 @@ export default function Checkout() {
         </div>
       </div>
     </div>
+    <Footer/>
+    </>
   );
 }

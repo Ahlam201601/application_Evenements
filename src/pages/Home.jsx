@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getEvents } from "../api/eventsApi";
 import EventCard from "../components/EventCard";
+import Navbar from '../components/Navbar';
+import Footer from "../components/Footer"
 
 export default function Home() {
   const [events, setEvents] = useState([]);
@@ -14,6 +16,8 @@ export default function Home() {
 
   return (
     <>
+    <Navbar/>
+    
       {/* Hero Section */}
       <section className="relative w-full h-screen overflow-hidden">
         {/* Overlay */}
@@ -95,6 +99,7 @@ export default function Home() {
           )}
         </div>
       </section>
+      <Footer/>
     </>
   );
 }

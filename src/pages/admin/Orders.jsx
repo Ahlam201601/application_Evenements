@@ -27,51 +27,42 @@ export default function Orders() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-100 pt-24 flex items-center justify-center">
-        <div className="text-slate-900 text-xl">Loading...</div>
+      <div className="min-h-screen bg-gray-900 pt-16 flex items-center justify-center">
+        <div className="text-gray-400 col-span-full text-center mt-10">
+          Loading...
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-100  pt-20 sm:pt-24 pb-12">
+    <div className="min-h-screen bg-gray-900 pt-12 sm:pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* HEADER */}
         <div className="mb-4 sm:mb-6">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-indigo-600 mb-2">
+          <h1
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 
+            bg-linear-to-r from-[#f91942] to-[#ff4d6d] bg-clip-text text-transparent"
+          >
             Orders
           </h1>
-          <p className="text-slate-900 text-sm sm:text-base">
+
+          <p className="text-slate-400 text-sm sm:text-base">
             View all customer orders
           </p>
         </div>
 
-        {/* 🔥🔥 SUMMARY NOW HERE 🔥🔥 */}
+        {/* SUMMARY – ONLY TOTAL ORDERS */}
         {orders.length > 0 && (
           <div className="mb-6 bg-gray-800 border border-slate-700 rounded-2xl p-4 sm:p-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4">
               <div className="text-center p-4 bg-slate-900 rounded-xl">
                 <p className="text-slate-400 text-xs sm:text-sm mb-1">
                   Total Orders
                 </p>
-                <p className="text-white text-xl sm:text-2xl font-bold">
+                <p className="text-[#f91942] text-xl sm:text-2xl font-bold">
                   {orders.length}
-                </p>
-              </div>
-
-              <div className="text-center p-4 bg-slate-900 rounded-xl">
-                <p className="text-slate-400 text-xs sm:text-sm mb-1">
-                  Total Revenue
-                </p>
-                <p className="text-indigo-400 text-xl sm:text-2xl font-bold">
-                  $
-                  {orders
-                    .reduce(
-                      (sum, order) => sum + parseFloat(order.total || 0),
-                      0
-                    )
-                    .toFixed(2)}
                 </p>
               </div>
             </div>
@@ -132,19 +123,13 @@ export default function Orders() {
                 {orders.length === 0 ? (
                   <tr>
                     <td colSpan="6" className="px-6 py-12 text-center">
-                      <FiShoppingBag
-                        className="mx-auto text-slate-600 mb-4"
-                        size={64}
-                      />
+                      <FiShoppingBag className="mx-auto text-slate-600 mb-4" size={64} />
                       <p className="text-slate-400">No orders yet</p>
                     </td>
                   </tr>
                 ) : (
                   orders.map((order) => (
-                    <tr
-                      key={order.id}
-                      className="hover:bg-slate-900/50 transition-colors"
-                    >
+                    <tr key={order.id} className="hover:bg-slate-900/50 transition-colors">
                       <td className="px-6 py-4 text-white font-medium">
                         {order.customerName}
                       </td>
@@ -166,7 +151,7 @@ export default function Orders() {
                                 alt={event.title}
                                 className="w-12 h-12 object-cover rounded-lg"
                               />
-                              <span className="absolute -top-1 -right-1 bg-indigo-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                              <span className="absolute -top-1 -right-1 bg-[#f91942] text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                                 {event.quantity}
                               </span>
                             </div>
@@ -174,7 +159,7 @@ export default function Orders() {
                         </div>
                       </td>
 
-                      <td className="px-6 py-4 text-indigo-400 font-bold text-lg">
+                      <td className="px-6 py-4 text-[#f91942] font-bold text-lg">
                         ${order.total}
                       </td>
 
@@ -198,15 +183,11 @@ export default function Orders() {
             </div>
           ) : (
             orders.map((order) => (
-              <div
-                key={order.id}
-                className="bg-gray-800 border border-slate-700 rounded-2xl p-4 space-y-3"
-              >
+              <div key={order.id} className="bg-gray-800 border border-slate-700 rounded-2xl p-4 space-y-3">
+
                 <div className="flex items-center gap-2">
-                  <FiUser className="text-indigo-400" size={18} />
-                  <span className="text-white font-semibold">
-                    {order.customerName}
-                  </span>
+                  <FiUser className="text-[#f91942]" size={18} />
+                  <span className="text-white font-semibold">{order.customerName}</span>
                 </div>
 
                 <div className="flex items-center gap-2">
@@ -236,7 +217,7 @@ export default function Orders() {
                             alt={event.title}
                             className="w-16 h-16 object-cover rounded-lg"
                           />
-                          <span className="absolute -top-1 -right-1 bg-indigo-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                          <span className="absolute -top-1 -right-1 bg-[#f91942] text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                             {event.quantity}
                           </span>
                         </div>
@@ -254,12 +235,13 @@ export default function Orders() {
                   </div>
 
                   <div className="flex items-center gap-1">
-                    <FiDollarSign className="text-indigo-400" size={18} />
-                    <span className="text-indigo-400 font-bold text-xl">
+                    <FiDollarSign className="text-[#f91942]" size={18} />
+                    <span className="text-[#f91942] font-bold text-xl">
                       {order.total}
                     </span>
                   </div>
                 </div>
+
               </div>
             ))
           )}

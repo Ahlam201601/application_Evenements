@@ -39,31 +39,30 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 bg-gray-100">
-      <div className="w-full max-w-md bg-slate-900/80 border border-white/10 backdrop-blur-xl shadow-2xl rounded-2xl p-8">
+    <div className="min-h-screen flex items-center justify-center px-6 bg-gray-900">
+      <div className="w-full max-w-md bg-gray-900/50 backdrop-blur-sm border border-[#f91942]/30 rounded-2xl shadow-lg p-8">
         
         {/* HEADER */}
         <div className="text-center mb-8">
           <h1 className="text-white text-2xl font-bold mb-1">
             🗂️ EventSphere Admin
           </h1>
-          <p className="text-slate-400 text-sm">
-            Login to continue
-          </p>
+          <p className="text-gray-400 text-sm">Login to continue</p>
         </div>
 
         {/* FORM */}
         <form onSubmit={handleSubmit} className="space-y-5">
-
           {/* EMAIL */}
           <div>
-            <label className="text-white/90 font-semibold text-sm block mb-1">
+            <label className="text-white font-semibold text-sm block mb-1">
               Email
             </label>
             <input
               type="email"
-              className="w-full px-4 py-3 rounded-xl bg-black/30 border-2 border-white/10 text-white placeholder-white/50 outline-none focus:border-indigo-400"
               placeholder="admin@gmail.com"
+              className={`w-full px-4 py-3 rounded-xl text-white placeholder-gray-400 bg-gray-800 border-2 outline-none focus:ring-2 focus:ring-[#f91942]/50 focus:border-[#f91942] ${
+                emailError ? "border-red-500 focus:border-red-500 focus:ring-red-200" : "border-gray-700"
+              }`}
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
@@ -74,42 +73,39 @@ const Login = ({ onLogin }) => {
               }}
             />
             {emailError && (
-              <span className="text-red-400 text-xs font-medium mt-1 block">
-                {emailError}
-              </span>
+              <span className="text-red-400 text-xs font-medium mt-1 block">{emailError}</span>
             )}
           </div>
 
           {/* PASSWORD */}
           <div>
-            <label className="text-white/90 font-semibold text-sm block mb-1">
+            <label className="text-white font-semibold text-sm block mb-1">
               Password
             </label>
             <input
               type="password"
-              className="w-full px-4 py-3 rounded-xl bg-black/30 border-2 border-white/10 text-white placeholder-white/50 outline-none focus:border-indigo-400"
               placeholder="••••••••"
+              className={`w-full px-4 py-3 rounded-xl text-white placeholder-gray-400 bg-gray-800 border-2 outline-none focus:ring-2 focus:ring-[#f91942]/50 focus:border-[#f91942] ${
+                passwordError ? "border-red-500 focus:border-red-500 focus:ring-red-200" : "border-gray-700"
+              }`}
               value={password}
               onChange={(e) => {
                 setPassword(e.target.value);
                 if (e.target.value.trim()) setPasswordError("");
               }}
               onBlur={(e) => {
-                if (!e.target.value.trim())
-                  setPasswordError("Password is required!");
+                if (!e.target.value.trim()) setPasswordError("Password is required!");
               }}
             />
             {passwordError && (
-              <span className="text-red-400 text-xs font-medium mt-1 block">
-                {passwordError}
-              </span>
+              <span className="text-red-400 text-xs font-medium mt-1 block">{passwordError}</span>
             )}
           </div>
 
-          {/* BUTTON */}
+          {/* LOGIN BUTTON */}
           <button
             type="submit"
-            className="w-full bg-indigo-500 hover:bg-indigo-600 transition text-white font-semibold py-3 rounded-xl mt-2"
+            className="w-full bg-linear-to-r from-[#f91942] to-[#ff4d6d] text-white font-semibold py-3 rounded-xl mt-2 shadow-lg hover:shadow-xl hover:shadow-[#f91942]/40 transition-all duration-300"
           >
             Login
           </button>

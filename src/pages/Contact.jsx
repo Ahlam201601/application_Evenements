@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { FiUser, FiMail, FiMessageSquare, FiSend } from "react-icons/fi";
 import toast from "react-hot-toast";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -30,6 +32,8 @@ export default function Contact() {
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="min-h-screen bg-linear-to-br from-gray-900 via-gray-800 to-gray-900 pt-24 pb-12 px-4">
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-10">
@@ -103,5 +107,7 @@ export default function Contact() {
         </form>
       </div>
     </div>
+    <Footer/>
+    </>
   );
 }

@@ -33,10 +33,10 @@ export default function AddEvent() {
     formData.append("file", file);
     formData.append("upload_preset", "events");
 
-    const res = await fetch(
-      CLOUDINARY_UPLOAD_URL,
-      { method: "POST", body: formData }
-    );
+    const res = await fetch(CLOUDINARY_UPLOAD_URL, {
+      method: "POST",
+      body: formData,
+    });
 
     const data = await res.json();
     setForm({ ...form, image: data.secure_url });
@@ -92,7 +92,7 @@ export default function AddEvent() {
     <>
       {/* MAIN MODAL */}
       <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 px-3">
-        <div className="relative bg-white w-full max-w-xl sm:max-w-2xl p-5 sm:p-8 rounded-2xl shadow-2xl border border-indigo-100">
+        <div className="relative bg-white w-full max-w-xl sm:max-w-2xl p-5 sm:p-8 rounded-2xl shadow-2xl border border-[#f91942]/30">
           <button
             onClick={() => navigate("/admin")}
             className="absolute right-4 top-4 text-gray-500 hover:text-black"
@@ -100,7 +100,7 @@ export default function AddEvent() {
             <FaTimes size={18} />
           </button>
 
-          <h2 className="text-2xl sm:text-3xl font-bold mb-5 text-gray-800">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-5 text-[#f91942] text-center">
             Add New Event
           </h2>
 
@@ -109,7 +109,7 @@ export default function AddEvent() {
             <input
               type="text"
               placeholder="Event title"
-              className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:border-indigo-400 outline-none"
+              className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:border-[#f91942] outline-none"
               value={form.title}
               onChange={(e) => setForm({ ...form, title: e.target.value })}
             />
@@ -121,7 +121,7 @@ export default function AddEvent() {
             <textarea
               rows="3"
               placeholder="Event description"
-              className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:border-indigo-400 outline-none"
+              className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:border-[#f91942] outline-none"
               value={form.description}
               onChange={(e) =>
                 setForm({ ...form, description: e.target.value })
@@ -135,7 +135,7 @@ export default function AddEvent() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <select
-                  className="w-full border rounded-lg px-4 py-3"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-[#f91942] outline-none"
                   value={form.category}
                   onChange={(e) =>
                     setForm({ ...form, category: e.target.value })
@@ -148,7 +148,9 @@ export default function AddEvent() {
                   <option value="Football">Football</option>
                 </select>
                 {errors.category && (
-                  <p className="text-red-500 text-sm mt-1">{errors.category}</p>
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.category}
+                  </p>
                 )}
               </div>
 
@@ -156,7 +158,7 @@ export default function AddEvent() {
                 <input
                   type="number"
                   placeholder="Ticket price"
-                  className="w-full border rounded-lg px-4 py-3"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-[#f91942] outline-none"
                   value={form.price}
                   onChange={(e) => setForm({ ...form, price: e.target.value })}
                 />
@@ -171,7 +173,7 @@ export default function AddEvent() {
               <div>
                 <input
                   type="date"
-                  className="w-full border rounded-lg px-4 py-3"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-[#f91942] outline-none"
                   value={form.date}
                   onChange={(e) => setForm({ ...form, date: e.target.value })}
                 />
@@ -184,14 +186,16 @@ export default function AddEvent() {
                 <input
                   type="text"
                   placeholder="Location"
-                  className="w-full border rounded-lg px-4 py-3"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:border-[#f91942] outline-none"
                   value={form.location}
                   onChange={(e) =>
                     setForm({ ...form, location: e.target.value })
                   }
                 />
                 {errors.location && (
-                  <p className="text-red-500 text-sm mt-1">{errors.location}</p>
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.location}
+                  </p>
                 )}
               </div>
             </div>
@@ -200,7 +204,7 @@ export default function AddEvent() {
             <input
               type="file"
               accept="image/*"
-              className="w-full border border-gray-200 rounded-xl px-4 py-3"
+              className="w-full border border-gray-300 rounded-xl px-4 py-3"
               onChange={handleImageUpload}
             />
 
@@ -223,7 +227,7 @@ export default function AddEvent() {
             <div className="flex justify-end pt-3">
               <button
                 onClick={handleAddClick}
-                className="bg-indigo-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-indigo-700 transition"
+                className="bg-[#f91942] text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition"
               >
                 Add Event
               </button>
@@ -235,10 +239,10 @@ export default function AddEvent() {
       {/* CONFIRM MODAL */}
       {showConfirm && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 px-3">
-          <div className="bg-white w-full max-w-sm sm:max-w-md p-6 sm:p-8 rounded-2xl shadow-2xl border border-indigo-100 flex flex-col items-center text-center space-y-4">
-            {/* ICON */}
-            <div className="bg-indigo-100 text-indigo-600 w-16 h-16 flex items-center justify-center rounded-full text-3xl">
-              ✅
+          <div className="bg-white w-full max-w-sm sm:max-w-md p-6 sm:p-8 rounded-2xl shadow-2xl border border-[#f91942]/30 flex flex-col items-center text-center space-y-4">
+
+            <div className="bg-[#f91942]/10 text-[#f91942] w-16 h-16 flex items-center justify-center rounded-full text-3xl">
+              ❤️
             </div>
 
             <h3 className="text-lg sm:text-xl font-bold text-gray-800">
@@ -246,11 +250,9 @@ export default function AddEvent() {
             </h3>
 
             <p className="text-gray-500 text-sm sm:text-base">
-              Are you sure you want to add this event? This action cannot be
-              undone.
+              Are you sure you want to add this event?
             </p>
 
-            {/* ACTION BUTTONS */}
             <div className="flex flex-col sm:flex-row justify-center gap-3 w-full mt-2">
               <button
                 onClick={() => setShowConfirm(false)}
@@ -262,7 +264,7 @@ export default function AddEvent() {
               <button
                 onClick={handleSubmit}
                 disabled={loading}
-                className="w-full sm:w-auto px-4 py-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 transition"
+                className="w-full sm:w-auto px-4 py-2 rounded-xl bg-[#f91942] text-white hover:opacity-90 transition"
               >
                 {loading ? "Adding..." : "Confirm"}
               </button>
