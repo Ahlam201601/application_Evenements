@@ -58,7 +58,7 @@ export default function Navbar() {
             </button>
 
             <Link
-              to="/admin"
+              to="/login"
               className="flex items-center gap-2 bg-[#f91942] text-white px-4 py-2 rounded-lg font-semibold shadow-lg shadow-[#f91942]/30 hover:bg-[#df1539] transition-all duration-300"
             >
               <FiLogIn size={18} />
@@ -118,7 +118,7 @@ export default function Navbar() {
               </NavLink>
 
               <Link
-                to="/admin"
+                to="/login"
                 onClick={() => setIsMenuOpen(false)}
                 className="flex items-center gap-2 bg-[#f91942] text-white px-4 py-2 rounded-lg font-semibold shadow-lg shadow-[#f91942]/30 hover:bg-[#df1539] transition-all duration-300 w-fit"
               >
