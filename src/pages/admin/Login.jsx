@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import Navbar from "../../components/Navbar";
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState("");
@@ -39,6 +40,8 @@ const Login = ({ onLogin }) => {
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="min-h-screen flex items-center justify-center px-6 bg-gray-900">
       <div className="w-full max-w-md bg-gray-900/50 backdrop-blur-sm border border-[#f91942]/30 rounded-2xl shadow-lg p-8">
         
@@ -112,6 +115,7 @@ const Login = ({ onLogin }) => {
         </form>
       </div>
     </div>
+    </>
   );
 };
 

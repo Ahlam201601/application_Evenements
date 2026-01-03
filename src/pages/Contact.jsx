@@ -3,11 +3,15 @@ import { FiUser, FiMail, FiMessageSquare, FiSend } from "react-icons/fi";
 import toast from "react-hot-toast";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import axios from "axios";
+
+
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const VITE_N8N_CONTACT_URL = import.meta.env.VITE_N8N_CONTACT_URL;
 
   const validate = () => {
     const e = {};
@@ -20,16 +24,28 @@ export default function Contact() {
     return Object.keys(e).length === 0;
   };
 
-  const submit = (ev) => {
-    ev.preventDefault();
-    if (!validate()) return;
-    setLoading(true);
-    setTimeout(() => {
-      toast.success("Message sent successfully ✅");
-      setForm({ name: "", email: "", message: "" });
-      setLoading(false);
-    }, 1000);
-  };
+
+
+  const submit = async (e) => {
+  e.preventDefault();
+  
+  if (!validate()) return;
+
+  setLoading(true);
+
+  try {
+    await axios.post(VITE_N8N_CONTACT_URL, form);
+    toast.success("Message sent successfully ✅");
+    setForm({ name: "", email: "", message: "" });
+  } catch (error) {
+    console.error("Error sending message:", error);
+    toast.error("Failed to send message ❌");
+  } finally {
+    setLoading(false);
+  }
+};
+
+  
 
   return (
     <>
@@ -40,7 +56,7 @@ export default function Contact() {
           <h1 className="text-5xl font-bold text-white">
             Contact <span className="text-[#f91942]">Us</span>
           </h1>
-          <p className="text-gray-400 mt-3">We’d love to hear from you</p>
+          <p className="text-gray-400 mt-3">We'd love to hear from you</p>
         </div>
 
         <form
