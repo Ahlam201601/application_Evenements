@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 
+const ADMIN_EMAIL = import.meta.env.VITE_ADMIN_EMAIL;
+const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD;
+
 export default function useAuth() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -9,7 +12,7 @@ export default function useAuth() {
   }, []);
 
   const login = (email, password) => {
-    if (email === "admin@gmail.com" && password === "12345678") {
+    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
       localStorage.setItem("isAuthenticated", "true");
       setIsAuthenticated(true);
       return true;
