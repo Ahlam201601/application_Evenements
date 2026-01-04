@@ -190,7 +190,7 @@ export default function Home() {
           {events.length > 0 ? (
             <>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {events.slice(0, 5).map((event) => (
+                {events.slice(0, 4).map((event) => (
                   <EventCard key={event.id} event={event} isAdmin={false} />
                 ))}
               </div>
