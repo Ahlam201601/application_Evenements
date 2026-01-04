@@ -6,7 +6,12 @@ import { addToCart } from "../lib/cartSlice";
 
 export default function EventCard({ event, onDeleteClick, isAdmin }) {
   const [editEvent, setEditEvent] = useState(false);
+  const [currentEvent, setCurrentEvent] = useState(event);
   const dispatch = useDispatch();
+
+  const handleUpdate = (updatedEvent) => {
+    setCurrentEvent(updatedEvent);
+  };
 
   return (
     <>
@@ -14,14 +19,14 @@ export default function EventCard({ event, onDeleteClick, isAdmin }) {
         {/* IMAGE */}
         <div className="relative h-36 sm:h-40 overflow-hidden">
           <img
-            src={event.image}
-            alt={event.title}
+            src={currentEvent.image}
+            alt={currentEvent.title}
             className="w-full h-full object-cover brightness-90 hover:scale-110 transition-transform duration-500"
           />
           <div className="absolute inset-0 bg-linear-to-t from-gray-900/90 via-transparent to-transparent"></div>
           {/* CATEGORY BADGE */}
           <div className="absolute top-3 right-3 bg-[#f91942] text-white font-bold px-3 py-1 rounded-full text-sm shadow-lg shadow-[#f91942]/30">
-            {event.category}
+            {currentEvent.category}
           </div>
         </div>
 
@@ -30,28 +35,28 @@ export default function EventCard({ event, onDeleteClick, isAdmin }) {
           {/* TITLE AND PRICE */}
           <div className="flex items-start justify-between">
             <h2 className="text-base sm:text-lg font-bold text-white leading-tight flex-1 line-clamp-1">
-              {event.title}
+              {currentEvent.title}
             </h2>
             <div className="text-right shrink-0 ml-2">
               <div className="text-sm text-gray-400">From</div>
-              <div className="text-xl font-bold text-[#f91942]">${event.price}</div>
+              <div className="text-xl font-bold text-[#f91942]">${currentEvent.price}</div>
             </div>
           </div>
 
           {/* DESCRIPTION */}
           <p className="text-gray-400 text-xs leading-relaxed line-clamp-2">
-            {event.description}
+            {currentEvent.description}
           </p>
 
           {/* DATE + LOCATION */}
           <div className="flex flex-col gap-2 text-xs text-gray-300">
             <div className="flex items-center gap-2">
               <FiCalendar className="text-[#f91942]" size={14} />
-              <span className="line-clamp-1">{event.date}</span>
+              <span className="line-clamp-1">{currentEvent.date}</span>
             </div>
             <div className="flex items-center gap-2">
               <FiMapPin className="text-[#f91942]" size={14} />
-              <span className="line-clamp-1">{event.location}</span>
+              <span className="line-clamp-1">{currentEvent.location}</span>
             </div>
           </div>
 
@@ -60,7 +65,7 @@ export default function EventCard({ event, onDeleteClick, isAdmin }) {
             {!isAdmin ? (
               <>
                 <button 
-                  onClick={() => dispatch(addToCart(event))}
+                  onClick={() => dispatch(addToCart(currentEvent))}
                   className="flex-1 py-2.5 text-sm text-white font-medium bg-[#f91942] hover:bg-[#e0183b] rounded-lg transition-all duration-300 shadow-lg shadow-[#f91942]/20 flex items-center justify-center gap-2"
                 >
                   <FiShoppingCart size={16} />
@@ -77,7 +82,7 @@ export default function EventCard({ event, onDeleteClick, isAdmin }) {
                   <FiEdit size={16} className="mx-auto group-hover:scale-110 transition-transform" />
                 </button>
                 <button
-                  onClick={() => onDeleteClick(event.id)}
+                  onClick={() => onDeleteClick(currentEvent.id)}
                   className="flex-1 p-2.5 text-white bg-gray-700/50 border border-gray-600 rounded-lg hover:bg-red-600 hover:border-red-600 transition-colors group"
                   aria-label="Delete event"
                 >
@@ -91,9 +96,11 @@ export default function EventCard({ event, onDeleteClick, isAdmin }) {
 
       {/* EDIT POPUP */}
       {editEvent && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 px-3">
-          <EditEvent event={event} onClose={() => setEditEvent(false)} />
-        </div>
+        <EditEvent 
+          event={currentEvent} 
+          onClose={() => setEditEvent(false)} 
+          onUpdate={handleUpdate} 
+        />
       )}
     </>
   );

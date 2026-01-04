@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 
 const CLOUDINARY_UPLOAD_URL = import.meta.env.VITE_CLOUDINARY_UPLOAD_URL;
 
-export default function EditEvent({ event, onClose }) {
+export default function EditEvent({ event, onClose, onUpdate }) {
   const [form, setForm] = useState({
     title: event.title || "",
     description: event.description || "",
@@ -67,7 +67,7 @@ export default function EditEvent({ event, onClose }) {
     setLoading(true);
 
     try {
-      await updateEvent(form.id, {
+      const updatedData = {
         title: form.title,
         description: form.description,
         category: form.category,
@@ -75,7 +75,12 @@ export default function EditEvent({ event, onClose }) {
         location: form.location,
         price: Number(form.price),
         image: form.image,
-      });
+      };
+
+      await updateEvent(form.id, updatedData);
+
+      // Pass the updated event back to the parent
+      onUpdate({ ...updatedData, id: form.id });
 
       toast.success("Event updated successfully 🎉");
       onClose();
@@ -89,7 +94,7 @@ export default function EditEvent({ event, onClose }) {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/40 z-50 px-4">
-      <div className="bg-white w-full max-w-2xl p-6 rounded-2xl shadow-2xl">
+      <div className="bg-white w-full max-w-2xl p-6 rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
 
         <h2 className="text-2xl font-bold text-[#f91942] text-center mb-4">
           Edit Event
