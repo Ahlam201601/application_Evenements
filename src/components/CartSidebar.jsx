@@ -58,7 +58,10 @@ export default function CartSidebar({ open, onClose }) {
               </h3>
               <p className="text-gray-400 mb-6">Start adding some events!</p>
               <button
-                onClick={onClose}
+                 onClick={() => {
+                onClose();
+                navigate("/events");
+              }}
                 className="bg-[#f91942] hover:bg-[#e0183b] text-white font-semibold py-3 px-6 rounded-lg transition-colors"
               >
                 Browse Events
