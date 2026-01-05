@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getEvents } from "../api/eventsApi";
+import { getEvents } from "../services/eventsApi";
 import EventCard from "../components/EventCard";
 import { FaFilter, FaSearch } from "react-icons/fa";
 import Navbar from "../components/Navbar";

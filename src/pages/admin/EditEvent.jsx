@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { updateEvent } from "../../api/eventsApi";
+import { updateEvent } from "../../services/eventsApi";
 import toast from "react-hot-toast";
 
 const CLOUDINARY_UPLOAD_URL = import.meta.env.VITE_CLOUDINARY_UPLOAD_URL;

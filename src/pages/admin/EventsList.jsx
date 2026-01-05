@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getEvents, deleteEvent } from "../../api/eventsApi";
+import { getEvents, deleteEvent } from "../../services/eventsApi";
 import EventCard from "../../components/EventCard";
 import toast from "react-hot-toast";
 

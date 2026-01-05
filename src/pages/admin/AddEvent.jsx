@@ -1,7 +1,7 @@
 import { FaTimes } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { EventPost } from "../../api/eventsApi";
+import { EventPost } from "../../services/eventsApi";
 import toast from "react-hot-toast";
 
 const CLOUDINARY_UPLOAD_URL = import.meta.env.VITE_CLOUDINARY_UPLOAD_URL;

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getOrders } from "../../api/orderApi";
+import { getOrders } from "../../services/orderApi";
 import {
   FiShoppingBag,
   FiCalendar,

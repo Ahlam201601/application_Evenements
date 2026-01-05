@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { FiShoppingCart, FiCheckCircle, FiUser, FiMail, FiPhone } from "react-icons/fi";
 import { clearCart } from "../lib/cartSlice";
-import { createOrder, placeOrder } from "../api/orderApi";
+import { createOrder, placeOrder } from "../services/orderApi";
 import toast from "react-hot-toast";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
