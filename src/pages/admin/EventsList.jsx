@@ -36,7 +36,7 @@ export default function EventsList() {
 
         <button
           onClick={() => navigate("/admin/add")}
-          className="bg-linear-to-r from-[#f91942] to-[#ff4d6d] text-white px-5 py-2.5 sm:py-3 rounded-2xl font-semibold shadow-lg hover:shadow-[#f91942]/50 transition w-full sm:w-auto text-center mr-8"
+          className="bg-linear-to-r from-[#f91942] to-[#ff4d6d] text-white px-5 py-2.5 sm:py-3 rounded-2xl font-semibold shadow-lg hover:shadow-[#f91942]/50 transition w-full sm:w-auto text-center mr-8 cursor-pointer"
         >
           + Add Event
         </button>

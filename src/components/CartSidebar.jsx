@@ -40,7 +40,7 @@ export default function CartSidebar({ open, onClose }) {
           </h2>
           <button
             onClick={onClose}
-            className="text-white hover:bg-[#e0183b] rounded-lg p-2 transition-colors"
+            className="text-white hover:bg-[#e0183b] rounded-lg p-2 transition-colors cursor-pointer"
           >
             <FiX size={24} />
           </button>
@@ -62,7 +62,7 @@ export default function CartSidebar({ open, onClose }) {
                 onClose();
                 navigate("/events");
               }}
-                className="bg-[#f91942] hover:bg-[#e0183b] text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+                className="bg-[#f91942] hover:bg-[#e0183b] text-white font-semibold py-3 px-6 rounded-lg transition-colors cursor-pointer"
               >
                 Browse Events
               </button>

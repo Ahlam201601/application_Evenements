@@ -32,6 +32,7 @@ export default function AddEvent() {
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", "events");
+    console.log(formData.append("upload_preset", "events"))
 
     const res = await fetch(CLOUDINARY_UPLOAD_URL, {
       method: "POST",
@@ -227,7 +228,7 @@ export default function AddEvent() {
             <div className="flex justify-end pt-3">
               <button
                 onClick={handleAddClick}
-                className="bg-[#f91942] text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition"
+                className="bg-[#f91942] text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition cursor-pointer"
               >
                 Add Event
               </button>

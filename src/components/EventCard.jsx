@@ -76,14 +76,14 @@ export default function EventCard({ event, onDeleteClick, isAdmin }) {
               <>
                 <button
                   onClick={() => setEditEvent(true)}
-                  className="flex-1 p-2.5 text-white bg-gray-700/50 border border-gray-600 rounded-lg hover:bg-[#f91942] hover:border-[#f91942] transition-colors group"
+                  className="flex-1 p-2.5 text-white bg-gray-700/50 border border-gray-600 rounded-lg hover:bg-[#f91942] hover:border-[#f91942] transition-colors group cursor-pointer"
                   aria-label="Edit event"
                 >
                   <FiEdit size={16} className="mx-auto group-hover:scale-110 transition-transform" />
                 </button>
                 <button
                   onClick={() => onDeleteClick(currentEvent.id)}
-                  className="flex-1 p-2.5 text-white bg-gray-700/50 border border-gray-600 rounded-lg hover:bg-red-600 hover:border-red-600 transition-colors group"
+                  className="flex-1 p-2.5 text-white bg-gray-700/50 border border-gray-600 rounded-lg hover:bg-red-600 hover:border-red-600 transition-colors group cursor-pointer"
                   aria-label="Delete event"
                 >
                   <FiTrash2 size={16} className="mx-auto group-hover:scale-110 transition-transform" />

@@ -40,7 +40,7 @@ export default function CardItem({ item }) {
           <div className="flex items-center gap-2 bg-slate-700 rounded-lg p-1 w-fit mt-1">
             <button
               onClick={() => dispatch(decreaseQuantity(item.id))}
-              className="w-7 h-7 bg-slate-600 hover:bg-indigo-600 text-white rounded-md flex items-center justify-center transition-colors"
+              className="w-7 h-7 bg-slate-600 hover:bg-indigo-600 text-white rounded-md flex items-center justify-center transition-colors cursor-pointer"
             >
               <FiMinus size={14} />
             </button>
@@ -51,7 +51,7 @@ export default function CardItem({ item }) {
 
             <button
               onClick={() => dispatch(increaseQuantity(item.id))}
-              className="w-7 h-7 bg-slate-600 hover:bg-indigo-600 text-white rounded-md flex items-center justify-center transition-colors"
+              className="w-7 h-7 bg-slate-600 hover:bg-indigo-600 text-white rounded-md flex items-center justify-center transition-colors cursor-pointer"
             >
               <FiPlus size={14} />
             </button>
@@ -61,7 +61,7 @@ export default function CardItem({ item }) {
         {/* REMOVE BUTTON */}
         <button
           onClick={() => dispatch(removeCart(item.id))}
-          className="shrink-0 text-red-400 hover:text-red-500 hover:bg-red-500/10 p-2 rounded-lg transition-all h-fit"
+          className="shrink-0 text-red-400 hover:text-red-500 hover:bg-red-500/10 p-2 rounded-lg transition-all h-fit cursor-pointer"
           aria-label="Remove item"
         >
           <FiTrash2 size={18} />

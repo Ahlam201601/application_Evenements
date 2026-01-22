@@ -47,11 +47,11 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-4">
             <button
               onClick={() => setCartOpen(true)}
-              className="text-slate-300 hover:text-[#f91942] transition-colors relative"
+              className="text-slate-300 hover:text-[#f91942] transition-colors relative cursor-pointer"
             >
               <FiShoppingCart size={22} />
               {totalQuantity > 0 && (
-                <span className="absolute -top-2 -right-2 bg-[#f91942] text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 bg-[#f91942] text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center ">
                   {totalQuantity}
                 </span>
               )}

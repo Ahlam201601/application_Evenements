@@ -40,7 +40,7 @@ const Dashboard = ({ onLogout }) => {
         w-64 flex flex-col`}
       >
         <div className="flex-1 overflow-y-auto mt-16 sm:mt-0 p-6">
-          <h1 className="text-2xl font-bold mb-10 text-white hidden sm:block">
+          <h1 className="text-2xl font-bold mb-10 text-white hidden sm:block cursor-pointer">
             <span className="text-[#f91942]">Event</span>Sphere Admin
           </h1>
 
@@ -50,7 +50,7 @@ const Dashboard = ({ onLogout }) => {
                 setActiveTab("events");
                 setSidebarOpen(false);
               }}
-              className={`w-full flex items-center gap-3 p-4 rounded-xl ${
+              className={`w-full flex items-center gap-3 p-4 rounded-xl cursor-pointer ${
                 activeTab === "events"
                   ? "bg-[#f91942] text-white"
                   : "text-gray-300 hover:bg-gray-700"
@@ -65,7 +65,7 @@ const Dashboard = ({ onLogout }) => {
                 setActiveTab("orders");
                 setSidebarOpen(false);
               }}
-              className={`w-full flex items-center gap-3 p-4 rounded-xl ${
+              className={`w-full flex items-center gap-3 p-4 rounded-xl cursor-pointer ${
                 activeTab === "orders"
                   ? "bg-[#f91942] text-white"
                   : "text-gray-300 hover:bg-gray-700"
@@ -80,7 +80,7 @@ const Dashboard = ({ onLogout }) => {
         <div className="p-6 border-t border-gray-700">
           <button
             onClick={handleLogout}
-            className="w-full flex items-center gap-3 p-4 rounded-xl bg-red-600 text-white hover:bg-red-700"
+            className="w-full flex items-center gap-3 p-4 rounded-xl bg-red-600 text-white hover:bg-red-700 cursor-pointer"
           >
             <FiLogOut />
             Logout
